@@ -16,14 +16,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="trabalho")
+@Table(name="tra_trabalho")
 public class Trabalho {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="tra_id")
 	private Long id;
 	
-	@Column(name="tra_titulo", length=50, nullable=false)
+	@Column(name="tra_titulo")
 	private String titulo;
 	
 	@Column(name="tra_data_hora_entrega")
@@ -36,7 +36,7 @@ public class Trabalho {
 	@ManyToOne (fetch=FetchType.EAGER) /*EAGER: traz tanto os valores do trabalho quanto o professor de uma só vez, com left join. Não é performático.
 										LAZY: traz todas as informações do trabalho e , se necessário, faz um select rápido em professor */
 	
-	@JoinColumn(name="pro_avaliador_id") /*chave estrangeira utilizando OO corretamente*/
+	@JoinColumn(name="pro_avaliador") /*chave estrangeira utilizando OO corretamente*/
 	private Professor professor; /*objeto que referência o professor*/
 	
 	
