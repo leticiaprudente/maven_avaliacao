@@ -33,20 +33,21 @@ public class Trabalho {
 	private String localArquivo;
 	
 	/*1 prof tem n trabalhos, n trabalhos tem 1 prof, por isso usar ManyToOne*/
-	@ManyToOne (fetch=FetchType.EAGER) /*EAGER: traz tanto os valores do trabalho quanto o professor de uma só vez, com left join. Não é performático.
-										LAZY: traz todas as informações do trabalho e , se necessário, faz um select rápido em professor */
 	
-	@JoinColumn(name="pro_avaliador") /*chave estrangeira utilizando OO corretamente*/
+	/*EAGER: traz tanto os valores do trabalho quanto o professor de uma só vez, com left join. Não é performático.
+	LAZY: traz todas as informações do trabalho e , se necessário, faz um select rápido em professor */
+	@ManyToOne (fetch=FetchType.EAGER) 
+	@JoinColumn(name="pro_avaliador_id") /*chave estrangeira utilizando OO corretamente*/
 	private Professor professor; /*objeto que referência o professor*/
 	
 	
-	@ManyToMany(fetch = FetchType.EAGER)
 	/*a tabela Entrega é resultado de um relacionamento N,N*/
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="ent_entrega",
 				joinColumns= {@JoinColumn(name="tra_id")},
 				inverseJoinColumns = {@JoinColumn(name="alu_id")}) 
 	/*o Hibernate não trabalha bem com List*/
-	private Set<Aluno> alunos; /*o aluno só pode estar relacionado 1 vez por cada trabalho, por isso não é necessário usar List*/
+	private Set<Aluno> alunos; /*o aluno só pode estar relacionado 1 vez com cada trabalho, por isso não é necessário usar List*/
 
 
 	public Long getId() {
